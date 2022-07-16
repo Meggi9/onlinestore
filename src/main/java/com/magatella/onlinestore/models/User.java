@@ -1,9 +1,10 @@
 package com.magatella.onlinestore.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name="user_table")
+@Table(name="user_table", schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,23 +12,27 @@ public class User {
     private Long id;
 
     @Column(name = "surname")
-    private String Surname;
+    private String surname;
 
     @Column(name = "firstname")
-    private String Firstname;
+    private String firstname;
 
     @Column(name = "lastname")
-    private String Lastname;
+    private String lastname;
 
-    public User() {
-    }
+    @Column(name="username")
+    private String username;
 
-    public User(Long id, String surname, String firstname, String lastname) {
-        this.id = id;
-        Surname = surname;
-        Firstname = firstname;
-        Lastname = lastname;
-    }
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "id_user"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -38,26 +43,58 @@ public class User {
     }
 
     public String getSurname() {
-        return Surname;
+        return surname;
     }
 
-    public void setSurname(String surname) {
-        Surname = surname;
+    public void setSurname(String Surname) {
+        surname = Surname;
     }
 
     public String getFirstname() {
-        return Firstname;
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
-        Firstname = firstname;
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-        return Lastname;
+        return lastname;
     }
 
     public void setLastname(String lastname) {
-        Lastname = lastname;
+        this.lastname = lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

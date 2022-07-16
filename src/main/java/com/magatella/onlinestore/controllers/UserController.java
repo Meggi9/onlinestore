@@ -3,22 +3,28 @@ package com.magatella.onlinestore.controllers;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
+import com.magatella.onlinestore.models.Role;
 import com.magatella.onlinestore.services.UserService;
 import com.magatella.onlinestore.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
-    private UserService userService;
 
     @Autowired
-    private UserController(UserService userService){
-        this.userService = userService;
-    }
+    private UserService userService;
+
+//    @Autowired
+//    private UserController(UserService userService){
+//        this.userService = userService;
+//    }
 
     @GetMapping("/add")
     public User begin(){
@@ -27,11 +33,20 @@ public class UserController {
         return user;
     }
 
-
     @PostMapping("/add")
-    @ResponseBody
-    public User create(@RequestBody User user) {
+    public User create(User user) {
+//        User userFromDb = userService.findByUsername(user.getUsername());
+//        if(userFromDb !=null){
+//
+//        }
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
         userService.save(user);
         return user;
+    }
+
+    @GetMapping("/userlist")
+    public List<User> userList(){
+        return userService.allUsers();
     }
 }

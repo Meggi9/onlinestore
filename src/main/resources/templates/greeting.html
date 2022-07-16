@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<header>
+    <title>Getting Starter</title>
+</header>
+
+<body>
+<div>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+</div>
+<!--<form th:action="@{/app/a}" method="post">-->
+
+<!--&lt;!&ndash;    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />&ndash;&gt;-->
+<!--    <div><input type="submit" value="Sign In"/></div>-->
+</form>
+
+</body>
