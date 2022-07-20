@@ -34,6 +34,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cart_id", referencedColumnName = "id_c")
+//    private Cart cart;
+
     public Long getId() {
         return id;
     }

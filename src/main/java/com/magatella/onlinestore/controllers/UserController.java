@@ -21,26 +21,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private UserController(UserService userService){
-//        this.userService = userService;
-//    }
-
-    @GetMapping("/add")
+    @PostMapping("/add")
     public User begin(){
         User user = userService.generationDataUser();
-        userService.save(user);
-        return user;
-    }
-
-    @PostMapping("/add")
-    public User create(User user) {
-//        User userFromDb = userService.findByUsername(user.getUsername());
-//        if(userFromDb !=null){
-//
-//        }
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
         userService.save(user);
         return user;
     }
